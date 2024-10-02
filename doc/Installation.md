@@ -20,7 +20,7 @@ IDE.
   vous pouvez le télécharger [ici](https://maven.apache.org/download.cgi).
 
 - MySQL <BR>
-  MySQL est un système de gestion de base de données relationnelles.
+  MySQL est un système de gestion de bases de données relationnelles.
   Vous pouvez le télécharger [ici](https://dev.mysql.com/downloads/mysql/).
 
 - Tomcat 9 <br>
@@ -28,7 +28,7 @@ IDE.
 
 ### Configuration du projet
 
-1. Récupérer les fichiers sources du projet (fichier ZIP) et décompresser les fichiers dans un répertoire de votre
+1. Récupérer les fichiers source du projet (fichier ZIP) et décompresser les fichiers dans un répertoire de votre
    choix. <br>
    Il est fortement déconseillé de déplacer les fichiers après les avoir décompressés, sous peine de rencontrer des
    problèmes de configuration.
@@ -55,8 +55,7 @@ IDE.
 
 5. Configuration de Tomcat <br>
    Pour configurer Tomcat, cliquez sur `Run` > `Edit Configurations` et ajoutez un nouveau serveur Tomcat en cliquant
-   sur
-   le bouton `+` en haut à gauche puis Sélectionnez `Tomcat Server` > `Local`. <br>
+   sur le bouton `+` en haut à gauche puis sélectionnez `Tomcat Server` > `Local`. <br>
    Configuration de l'onglet Server :
     - Assurez-vous d'utiliser pour `Application server` votre server TomCat.
     - Pour `HTTP port`, utilisez votre port de choix (`8081` dans l'exemple).
@@ -73,23 +72,22 @@ IDE.
     - Remplissez le champ `Application context` avec `/_00_ASBank2023`
       ![img.png](images/installation/TomcatDeployement.png)
 
-6. Configuration de la base de donnée MySQL. <br>
+6. Configuration de la base de données MySQL. <br>
     - Après avoir ouvert l'indice de commande de votre server MySQL, créer une base de données nommée `bankiut` à l'aide
       de la commande `CREATE DATABASE bankiut;`.
     - Connectez-vous à la base de données `bankiut` avec la commande `USE bankiut;`.
     - Initialisez la base de données en copiant le script `dumpSQL_JUnitTest.sql` situé dans le répertoire `./script`,
-      et
-      en le collant dans l'indice de commendes de votre serveur MySQL.
-    - La connection à la base de données MySQL est configurée dans le fichier `applicationContext.xml` situé dans le
+      et en le collant dans l'indice de commande de votre serveur MySQL.
+    - La connexion à la base de données MySQL est configurée dans le fichier `applicationContext.xml` situé dans le
       répertoire `./WebContent/WEB-INF`. Si vous avez modifié le nom de la base de données ou les informations de
-      connection, veuillez modifier les informations de connection dans la balise XML d'identifiant `dataSource`.
+      connexion, veuillez modifier les informations de connexion dans la balise XML d'identifiant `dataSource`.
 
 ### Exécution de l'application
 
 1. Compiler le projet. <br>
    À l'aide du scrip configurer dans l'étape 4, compiler le projet en exécutant le script maven.
-   Si vous rencontrez des erreurs lié aux tests unitaires, vous pouvez les ignorer en ajoutant l'option `-DskipTests` au
-   script.
+   Si vous rencontrez des erreurs liées aux tests unitaires, vous pouvez les ignorer en ajoutant l'option `-DskipTests`
+   au script.
 
 2. Démarrez le serveur Tomcat. <br>
    Pour démarrer le serveur Tomcat, sélectionnez le serveur Tomcat que vous avez configuré dans l'étape 5 et cliquez sur
@@ -101,3 +99,6 @@ IDE.
    `http://localhost:8081/_00_ASBank2023/` dans notre exemple.
 
 ### FAQ
+
+- **Q:** Je ne trouve pas l'artefact `war exploded` dans les options de configuration de Tomcat. <br>
+  **R:** Assurez-vous de ne pas déplacer le répertoire du projet après l'avoir décompressé.

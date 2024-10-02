@@ -12,7 +12,10 @@ import com.iut.banque.modele.Compte;
 import com.iut.banque.modele.Gestionnaire;
 import com.opensymphony.xwork2.ActionSupport;
 
+import java.util.logging.Logger;
+
 public class DetailCompte extends ActionSupport {
+	private Logger logger = Logger.getLogger(getClass().getName());
 
 	private static final long serialVersionUID = 1L;
 	protected BanqueFacade banque;
@@ -29,7 +32,7 @@ public class DetailCompte extends ActionSupport {
 	 *         la factory
 	 */
 	public DetailCompte() {
-		System.out.println("In Constructor from DetailCompte class ");
+		logger.info("In Constructor from DetailCompte class ");
 		ApplicationContext context = WebApplicationContextUtils
 				.getRequiredWebApplicationContext(ServletActionContext.getServletContext());
 		this.banque = (BanqueFacade) context.getBean("banqueFacade");

@@ -24,9 +24,11 @@ IDE.
   Vous pouvez le télécharger [ici](https://dev.mysql.com/downloads/mysql/).
 
 - Tomcat 9 <br>
-  Tomcat est un serveur web Java. Vous pouvez le télécharger [ici](https://tomcat.apache.org/download-90.cgi).
+  Tomcat est un serveur web Java. Vous pouvez le télécharger [ici](https://Tomcat.apache.org/download-90.cgi).
 
 ### Configuration du projet
+
+#### Importation du projet dans IntelliJ IDEA
 
 1. Récupérer les fichiers source du projet (fichier ZIP) et décompresser les fichiers dans un répertoire de votre
    choix. <br>
@@ -42,45 +44,56 @@ IDE.
 
    ![img.png](images/installation/Java11Config.png)
 
-4. Configuration du script maven. <br>
-   Pour configurer le script maven, cliquez sur `Run` > `Edit Configurations` et ajoutez un nouveau script maven en
-   cliquant sur le bouton `+` en haut à gauche puis sélectionnez `Maven`. <br>
-    - Assurez-vous que le champ `Run on` est configuré sur `Local machine`.
+#### Configuration du script maven.
 
-   Dans la section `Run`
-    - Renseignez le champ `Command line` avec `clean install -U`.
-    - Assurez-vous que le champ `Working directory` est configuré sur `_00_ASBank2023`.
+Pour configurer le script maven, cliquez sur `Run` > `Edit Configurations` et ajoutez un nouveau script maven en
+cliquant sur le bouton `+` en haut à gauche puis sélectionnez `Maven`. <br>
 
-   ![img.png](images/installation/MavenScript.png)
-### Tomcat
-5. Configuration de Tomcat <br>
-   Pour configurer Tomcat, cliquez sur `Run` > `Edit Configurations` et ajoutez un nouveau serveur Tomcat en cliquant
-   sur le bouton `+` en haut à gauche puis sélectionnez `Tomcat Server` > `Local`. <br>
-   Configuration de l'onglet Server :
-    - Assurez-vous d'utiliser pour `Application server` votre server TomCat.
-    - Pour `HTTP port`, utilisez votre port de choix (`8081` dans l'exemple).
-    - Pour `JRE`, utilisez la version par défaut, IntelliJ prendra celui de votre configuration de projet.
-    - Pour `Before launch`, ajoutez avec le `+` un `Build Artefacts` et sélectionnez `_00_ASBank2023:war exploded`.
-      Si un autre champ que celui-ci est sélectionné, vous pouvez le supprimer en cliquant dessus, puis sur le `-`.
+- Assurez-vous que le champ `Run on` est configuré sur `Local machine`.
 
-      ![img.png](images/installation/TomcatServer.png)
+Dans la section `Run`
 
-   Configuration de l'onglet Deployment :
-    - Pour `Deploy at the server startup`, ajoutez avec le `+` un `Artifacts...` et sélectionnez
-      `_00_ASBank2023:war exploded`.
-      Si un autre champ que celui-ci est sélectionné, vous pouvez le supprimer en cliquant dessus, puis sur le `-`.
-    - Remplissez le champ `Application context` avec `/_00_ASBank2023`
-      ![img.png](images/installation/TomcatDeployement.png)
+- Renseignez le champ `Command line` avec `clean install -U`.
+- Assurez-vous que le champ `Working directory` est configuré sur `_00_ASBank2023`.
 
-6. Configuration de la base de données MySQL. <br>
-    - Après avoir ouvert l'indice de commande de votre server MySQL, créer une base de données nommée `bankiut` à l'aide
-      de la commande `CREATE DATABASE bankiut;`.
-    - Connectez-vous à la base de données `bankiut` avec la commande `USE bankiut;`.
-    - Initialisez la base de données en copiant le script `dumpSQL_JUnitTest.sql` situé dans le répertoire `./script`,
-      et en le collant dans l'indice de commande de votre serveur MySQL.
-    - La connexion à la base de données MySQL est configurée dans le fichier `applicationContext.xml` situé dans le
-      répertoire `./WebContent/WEB-INF`. Si vous avez modifié le nom de la base de données ou les informations de
-      connexion, veuillez modifier les informations de connexion dans la balise XML d'identifiant `dataSource`.
+![img.png](images/installation/MavenScript.png)
+
+#### Configuration de Tomcat
+
+Pour configurer Tomcat, cliquez sur `Run` > `Edit Configurations` et ajoutez un nouveau serveur Tomcat en cliquant
+sur le bouton `+` en haut à gauche puis sélectionnez `Tomcat Server` > `Local`. <br>
+Configuration de l'onglet Server :
+
+- Assurez-vous d'utiliser pour `Application server` votre server TomCat.
+- Pour `HTTP port`, utilisez votre port de choix (`8081` dans l'exemple).
+- Pour `JRE`, utilisez la version par défaut, IntelliJ prendra celui de votre configuration de projet.
+- Pour `Before launch`, ajoutez avec le `+` un `Build Artefacts` et sélectionnez `_00_ASBank2023:war exploded`.
+  Si un autre champ que celui-ci est sélectionné, vous pouvez le supprimer en cliquant dessus, puis sur le `-`.
+
+  ![img.png](images/installation/TomcatServer.png)
+
+Configuration de l'onglet Deployment :
+
+- Pour `Deploy at the server startup`, ajoutez avec le `+` un `Artifacts...` et sélectionnez
+  `_00_ASBank2023:war exploded`.
+  Si un autre champ que celui-ci est sélectionné, vous pouvez le supprimer en cliquant dessus, puis sur le `-`.
+- Remplissez le champ `Application context` avec `/_00_ASBank2023`
+  ![img.png](images/installation/TomcatDeployement.png)
+
+#### Configuration de la base de données MySQL.
+
+- Après avoir ouvert l'indice de commande de votre server MySQL, créer une base de données nommée `bankiut` à l'aide
+  de la commande `CREATE DATABASE bankiut;`.
+- Connectez-vous à la base de données `bankiut` avec la commande `USE bankiut;`.
+- Initialisez la base de données en copiant le script `dumpSQL.sql` situé dans le répertoire `./script`,
+  et en le collant dans l'indice de commande de votre serveur MySQL.
+- La connexion à la base de données MySQL est configurée dans le fichier `applicationContext.xml` situé dans le
+  répertoire `./WebContent/WEB-INF`. Si vous avez modifié le nom de la base de données ou les informations de
+  connexion, veuillez modifier les informations de connexion dans la balise XML d'identifiant `dataSource`.
+
+- Faite de même pour la base de données `bankiuttest` pour les tests unitaires, avec le script
+  `dumpSQL_JUnitTest.sql`.
+- Les fichiers de configurations se trouvent cette fois-ci dans le répertoire `./src/test/resources`.
 
 ### Exécution de l'application
 
@@ -104,9 +117,9 @@ IDE.
   **R:** Assurez-vous de ne pas déplacer le répertoire du projet après l'avoir décompressé.
 
 
-- **Q:** Après avoir compilé mon projet, je rencontre une erreur lorsque je lance mon serveur tomcat: 
-         'java.nio.file.InvalidPathException: Illegal char <:> at index 3:'
+- **Q:** Après avoir compilé mon projet, je rencontre une erreur lorsque je lance mon serveur Tomcat :
+  `java.nio.file.InvalidPathException: Illegal char <:> at index 3:`
   **R:** C'est une erreur rare que vous pouvez rencontrer si vous utilisez le JDK11, essayez plutôt le JDK8.
-         Téléchargez le [ici](https://www.oracle.com/fr/java/technologies/javase/javase8-archive-downloads.html).
-         Changez ensuite le JDK en suivant les étapes décrites [plus haut](#prérequis). Assurez-vous que pour votre `JRE`
-         dans votre configuration [tomcat](#tomcat), vous ayez bien laissé le champ en 'Default' (ou vide).
+  Téléchargez-le [ici](https://www.oracle.com/fr/java/technologies/javase/javase8-archive-downloads.html).
+  Changez ensuite le JDK en suivant les étapes décrites [plus haut](#prérequis). Assurez-vous que pour votre `JRE`
+  dans votre configuration [Tomcat](#Configuration-de-Tomcat), vous ayez bien laissé le champ en `Default` (ou vide).

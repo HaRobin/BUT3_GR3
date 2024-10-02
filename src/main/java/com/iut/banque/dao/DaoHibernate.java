@@ -210,7 +210,7 @@ public class DaoHibernate implements IDao {
     @Override
     public Utilisateur getUserById(String id) {
         Session session = sessionFactory.getCurrentSession();
-        return  session.get(Utilisateur.class, id);
+        return session.get(Utilisateur.class, id);
     }
 
     /**

@@ -7,56 +7,55 @@ import com.iut.banque.modele.CompteAvecDecouvert;
 import java.util.logging.Logger;
 
 public class DetailCompteEdit extends DetailCompte {
-	private Logger logger = Logger.getLogger(getClass().getName());
+    private Logger logger = Logger.getLogger(getClass().getName());
 
-	private static final long serialVersionUID = 1L;
-	private String decouvertAutorise;
+    private static final long serialVersionUID = 1L;
+    private String decouvertAutorise;
 
-	/**
-	 * Constructeur sans argument de DetailCompteEdit
-	 */
-	public DetailCompteEdit() {
-		super();
-		logger.info("======================================");
-		logger.info("Dans le constructeur DetailCompteEdit");
-	}
+    /**
+     * Constructeur sans argument de DetailCompteEdit
+     */
+    public DetailCompteEdit() {
+        super();
+        logger.info("======================================");
+        logger.info("Dans le constructeur DetailCompteEdit");
+    }
 
-	/**
-	 * @return the decouvertAutorise
-	 */
-	public String getDecouvertAutorise() {
-		return decouvertAutorise;
-	}
+    /**
+     * @return the decouvertAutorise
+     */
+    public String getDecouvertAutorise() {
+        return decouvertAutorise;
+    }
 
-	/**
-	 * @param decouvertAutorise
-	 *            the decouvertAutorise to set
-	 */
-	public void setDecouvertAutorise(String decouvertAutorise) {
-		this.decouvertAutorise = decouvertAutorise;
-	}
+    /**
+     * @param decouvertAutorise the decouvertAutorise to set
+     */
+    public void setDecouvertAutorise(String decouvertAutorise) {
+        this.decouvertAutorise = decouvertAutorise;
+    }
 
-	/**
-	 * Permet le changement de découvert d'un compte avec découvert.
-	 * 
-	 * @return le status de l'action
-	 */
-	public String changementDecouvert() {
-		if (!(getCompte() instanceof CompteAvecDecouvert)) {
-			return "ERROR";
-		}
-		try {
-			Double decouvert = Double.parseDouble(decouvertAutorise);
-			banque.changeDecouvert((CompteAvecDecouvert) getCompte(), decouvert);
-			return "SUCCESS";
-		} catch (NumberFormatException nfe) {
-			nfe.printStackTrace();
-			return "ERROR";
-		} catch (IllegalFormatException e) {
-			return "NEGATIVEOVERDRAFT";
-		} catch (IllegalOperationException e) {
-			return "INCOMPATIBLEOVERDRAFT";
-		}
-	}
+    /**
+     * Permet le changement de découvert d'un compte avec découvert.
+     *
+     * @return le status de l'action
+     */
+    public String changementDecouvert() {
+        if (!(getCompte() instanceof CompteAvecDecouvert)) {
+            return "ERROR";
+        }
+        try {
+            Double decouvert = Double.parseDouble(decouvertAutorise);
+            banque.changeDecouvert((CompteAvecDecouvert) getCompte(), decouvert);
+            return "SUCCESS";
+        } catch (NumberFormatException nfe) {
+            nfe.printStackTrace();
+            return "ERROR";
+        } catch (IllegalFormatException e) {
+            return "NEGATIVEOVERDRAFT";
+        } catch (IllegalOperationException e) {
+            return "INCOMPATIBLEOVERDRAFT";
+        }
+    }
 
 }

@@ -52,7 +52,7 @@ IDE.
     - Assurez-vous que le champ `Working directory` est configuré sur `_00_ASBank2023`.
 
    ![img.png](images/installation/MavenScript.png)
-
+### Tomcat
 5. Configuration de Tomcat <br>
    Pour configurer Tomcat, cliquez sur `Run` > `Edit Configurations` et ajoutez un nouveau serveur Tomcat en cliquant
    sur le bouton `+` en haut à gauche puis sélectionnez `Tomcat Server` > `Local`. <br>
@@ -102,3 +102,11 @@ IDE.
 
 - **Q:** Je ne trouve pas l'artefact `war exploded` dans les options de configuration de Tomcat. <br>
   **R:** Assurez-vous de ne pas déplacer le répertoire du projet après l'avoir décompressé.
+
+
+- **Q:** Après avoir compilé mon projet, je rencontre une erreur lorsque je lance mon serveur tomcat: 
+         'java.nio.file.InvalidPathException: Illegal char <:> at index 3:'
+  **R:** C'est une erreur rare que vous pouvez rencontrer si vous utilisez le JDK11, essayez plutôt le JDK8.
+         Téléchargez le [ici](https://www.oracle.com/fr/java/technologies/javase/javase8-archive-downloads.html).
+         Changez ensuite le JDK en suivant les étapes décrites [plus haut](#prérequis). Assurez-vous que pour votre `JRE`
+         dans votre configuration [tomcat](#tomcat), vous ayez bien laissé le champ en 'Default' (ou vide).

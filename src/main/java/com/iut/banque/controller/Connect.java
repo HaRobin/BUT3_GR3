@@ -5,6 +5,7 @@ import com.iut.banque.facade.BanqueFacade;
 import com.iut.banque.modele.Client;
 import com.iut.banque.modele.Compte;
 import com.iut.banque.modele.Utilisateur;
+import com.iut.banque.utils.PasswordUtils;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.context.ApplicationContext;
@@ -53,7 +54,8 @@ public class Connect extends ActionSupport {
 
         int loginResult;
         try {
-            loginResult = banque.tryLogin(userCde, userPwd);
+            String hashedPwd = PasswordUtils.hashPwd(userPwd);
+            loginResult = banque.tryLogin(userCde, hashedPwd);
         } catch (Exception e) {
             e.printStackTrace();
             loginResult = LoginConstants.ERROR;

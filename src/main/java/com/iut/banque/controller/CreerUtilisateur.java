@@ -4,12 +4,17 @@ import com.iut.banque.exceptions.IllegalFormatException;
 import com.iut.banque.exceptions.IllegalOperationException;
 import com.iut.banque.exceptions.TechnicalException;
 import com.iut.banque.facade.BanqueFacade;
+import com.iut.banque.utils.PasswordUtils;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
+import java.util.logging.Logger;
+
 public class CreerUtilisateur extends ActionSupport {
+
+    Logger logger = Logger.getLogger(getClass().getName());
 
     private static final long serialVersionUID = 1L;
     private BanqueFacade banque;
@@ -140,7 +145,7 @@ public class CreerUtilisateur extends ActionSupport {
      * Constructeur sans paramêtre de CreerUtilisateur
      */
     public CreerUtilisateur() {
-        System.out.println("In Constructor from CreerUtilisateur class ");
+        logger.info("In Constructor from CreerUtilisateur class ");
         ApplicationContext context = WebApplicationContextUtils
                 .getRequiredWebApplicationContext(ServletActionContext.getServletContext());
         this.banque = (BanqueFacade) context.getBean("banqueFacade");
@@ -191,10 +196,11 @@ public class CreerUtilisateur extends ActionSupport {
      */
     public String creationUtilisateur() {
         try {
+            String hashedPwd = PasswordUtils.hashPwd(userPwd);
             if (client) {
-                banque.createClient(userId, userPwd, nom, prenom, adresse, male, numClient);
+                banque.createClient(userId, hashedPwd, nom, prenom, adresse, male, numClient);
             } else {
-                banque.createManager(userId, userPwd, nom, prenom, adresse, male);
+                banque.createManager(userId, hashedPwd, nom, prenom, adresse, male);
             }
             this.message = "Le nouvel utilisateur avec le user id '" + userId + "' a bien été crée.";
             this.result = "SUCCESS";

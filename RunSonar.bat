@@ -1,4 +1,1 @@
-mvn clean verify sonar:sonar \
-  -Dsonar.projectKey=IUTBankAS-BUT3_GR3 \
-  -Dsonar.host.url=http://localhost:9001 \
-  -Dsonar.login=sqp_5797077faf1b0f4a852f769808c53ac330282b95
+mvn sonar:sonar -Dsonar.projectKey=IUTBankAS-BUT3_GR3 -Dsonar.host.url=http://localhost:9000 -Dsonar.login=24098dc79dcaa86ffa86dc442083af41d0d9c9b8

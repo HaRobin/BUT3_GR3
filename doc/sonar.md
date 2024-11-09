@@ -57,3 +57,16 @@ suivants : `admin` / `admin` puis reconfigurer les identifiants.
 Configurer le projet SonarQube en suivant les étapes suivantes :
 
 A VENIR
+
+
+### Utilisation de SonarQube
+
+Exécuter le scripte `RunSonar.bat` manuellement pour lancer l'analyse de code.
+
+```shell
+.\RunSonar.bat
+```
+
+Résultat :
+
+![img.png](images/sonar/img-7.png)

@@ -28,6 +28,7 @@ public class CreerUtilisateur extends ActionSupport {
     private String numClient;
     private String message;
     private String result;
+    private static final String ERROR = "ERROR";
 
     /**
      * @return the userId
@@ -207,20 +208,20 @@ public class CreerUtilisateur extends ActionSupport {
             return "SUCCESS";
         } catch (IllegalOperationException e) {
             this.message = "L'identifiant à déjà été assigné à un autre utilisateur de la banque.";
-            this.result = "ERROR";
-            return "ERROR";
+            this.result = ERROR;
+            return ERROR;
         } catch (TechnicalException e) {
             this.message = "Le numéro de client est déjà assigné à un autre client.";
-            this.result = "ERROR";
-            return "ERROR";
+            this.result = ERROR;
+            return ERROR;
         } catch (IllegalArgumentException e) {
             this.message = "Le format de l'identifiant est incorrect.";
-            this.result = "ERROR";
-            return "ERROR";
+            this.result = ERROR;
+            return ERROR;
         } catch (IllegalFormatException e) {
             this.message = "Format du numéro de client incorrect.";
-            this.result = "ERROR";
-            return "ERROR";
+            this.result = ERROR;
+            return ERROR;
         }
     }
 }

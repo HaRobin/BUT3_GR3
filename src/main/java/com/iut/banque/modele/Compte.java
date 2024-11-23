@@ -179,6 +179,6 @@ public abstract class Compte {
      * correct, false sinon
      */
     public static boolean checkFormatNumeroCompte(String s) {
-        return Pattern.matches("[A-Z]{2}[0-9]{10}", s);
+        return Pattern.matches("[A-Z]{2}\\d{10}", s);
     }
 }

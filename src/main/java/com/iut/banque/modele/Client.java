@@ -170,7 +170,7 @@ public class Client extends Utilisateur {
      * correct, false sinon
      */
     public static boolean checkFormatUserIdClient(String s) {
-        return Pattern.matches("^[a-z]\\.[a-z]+[1-9][0-9]*$", s);
+        return Pattern.matches("^[a-z]\\.[a-z]+[1-9]\\d*$", s);
     }
 
     /**
@@ -183,7 +183,7 @@ public class Client extends Utilisateur {
      * correct, false sinon
      */
     public static boolean checkFormatNumeroClient(String s) {
-        return Pattern.matches("[0-9]{10}", s);
+        return Pattern.matches("\\d{10}", s);
     }
 
     /**
@@ -195,7 +195,7 @@ public class Client extends Utilisateur {
     public boolean possedeComptesADecouvert() {
         boolean result = false;
         for (Compte value : accounts.values()) {
-            if (!result && value.getSolde() < 0) {
+            if (value.getSolde() < 0) {
                 result = true;
                 break;
             }

@@ -21,6 +21,7 @@ public class DetailCompte extends ActionSupport {
     private String montant;
     private String error;
     protected Compte compte;
+    private static final String NEGATIVEAMOUNT = "NEGATIVEAMOUNT";
 
     /**
      * Constructeur du controlleur DetailCompte
@@ -104,12 +105,9 @@ public class DetailCompte extends ActionSupport {
      * l'utilisateur
      */
     public Compte getCompte() {
-        if (banque.getConnectedUser() instanceof Gestionnaire) {
+        if ((banque.getConnectedUser() instanceof Gestionnaire)
+            || (banque.getConnectedUser() instanceof Client && ((Client) banque.getConnectedUser()).getAccounts().containsKey(compte.getNumeroCompte()))) {
             return compte;
-        } else if (banque.getConnectedUser() instanceof Client) {
-            if (((Client) banque.getConnectedUser()).getAccounts().containsKey(compte.getNumeroCompte())) {
-                return compte;
-            }
         }
         return null;
     }
@@ -137,7 +135,7 @@ public class DetailCompte extends ActionSupport {
             return "NOTENOUGHFUNDS";
         } catch (IllegalFormatException e) {
             e.printStackTrace();
-            return "NEGATIVEAMOUNT";
+            return NEGATIVEAMOUNT;
         }
     }
 
@@ -157,7 +155,7 @@ public class DetailCompte extends ActionSupport {
             return "ERROR";
         } catch (IllegalFormatException e) {
             e.printStackTrace();
-            return "NEGATIVEAMOUNT";
+            return NEGATIVEAMOUNT;
         }
     }
 }

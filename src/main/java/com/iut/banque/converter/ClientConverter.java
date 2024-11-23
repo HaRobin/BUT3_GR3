@@ -44,7 +44,6 @@ public class ClientConverter extends StrutsTypeConverter {
         logger.info("=========================");
         logger.info("Création du convertisseur de client");
         ClientConverter.dao = dao;
-        // System.out.println("DAO injectée : " + dao);
     }
 
     /**
@@ -53,7 +52,6 @@ public class ClientConverter extends StrutsTypeConverter {
     public ClientConverter() {
         logger.info("=========================");
         logger.info("Création du convertisseur de client");
-        // System.out.println("DAO : " + dao);
     }
 
     /**

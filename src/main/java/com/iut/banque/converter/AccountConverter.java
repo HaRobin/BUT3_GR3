@@ -38,13 +38,11 @@ public class AccountConverter extends StrutsTypeConverter {
      * <p>
      * Utilisé pour l'injection de dépendance.
      *
-     * @param dao
      */
     public AccountConverter(IDao dao) {
         logger.info("=========================");
         logger.info("Création du convertisseur de compte");
         AccountConverter.dao = dao;
-        //logger.info("DAO injectée : " + dao);
     }
 
     /**
@@ -53,7 +51,6 @@ public class AccountConverter extends StrutsTypeConverter {
     public AccountConverter() {
         logger.info("=========================");
         logger.info("Création du convertisseur de compte");
-        //logger.info("DAO : " + dao);
     }
 
     /**

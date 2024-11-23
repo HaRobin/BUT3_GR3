@@ -28,7 +28,7 @@ public class CreerUtilisateur extends ActionSupport {
     private String numClient;
     private String message;
     private String result;
-    private String ERROR = "ERROR";
+    private static final String ERROR = "ERROR";
 
     /**
      * @return the userId

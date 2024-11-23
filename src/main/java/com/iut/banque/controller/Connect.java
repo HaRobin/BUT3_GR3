@@ -22,7 +22,7 @@ public class Connect extends ActionSupport {
     private String userCde;
     private String userPwd;
     private BanqueFacade banque;
-    private String ERROR = "ERROR";
+    private static final String ERROR = "ERROR";
 
     /**
      * Constructeur de la classe Connect

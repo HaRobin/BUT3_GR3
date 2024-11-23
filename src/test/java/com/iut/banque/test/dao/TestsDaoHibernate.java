@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Map;
 
+import static com.iut.banque.utils.PasswordUtils.hashPwd;
 import static org.junit.Assert.*;
 
 /**
@@ -295,7 +296,8 @@ public class TestsDaoHibernate {
 
     @Test
     public void testIsUserAllowedUser() {
-        assertTrue(daoHibernate.isUserAllowed("c.exist", "TEST PASS"));
+        String hashedPassword = hashPwd("TEST PASS");
+        assertTrue(daoHibernate.isUserAllowed("c.exist", hashedPassword));
     }
 
     @Test

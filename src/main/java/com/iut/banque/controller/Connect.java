@@ -22,6 +22,7 @@ public class Connect extends ActionSupport {
     private String userCde;
     private String userPwd;
     private BanqueFacade banque;
+    private String ERROR = "ERROR";
 
     /**
      * Constructeur de la classe Connect
@@ -48,7 +49,7 @@ public class Connect extends ActionSupport {
         logger.info("Essai de login - 20180512...");
 
         if (userCde == null || userPwd == null) {
-            return "ERROR";
+            return ERROR;
         }
         userCde = userCde.trim();
 
@@ -70,10 +71,10 @@ public class Connect extends ActionSupport {
                 return "SUCCESSMANAGER";
             case LoginConstants.LOGIN_FAILED:
                 logger.info("login failed");
-                return "ERROR";
+                return ERROR;
             default:
                 logger.info("error");
-                return "ERROR";
+                return ERROR;
         }
     }
 

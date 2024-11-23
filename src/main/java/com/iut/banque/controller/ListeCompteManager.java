@@ -11,6 +11,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import java.util.Map;
+import java.util.logging.Logger;
 
 public class ListeCompteManager extends ActionSupport {
 
@@ -21,6 +22,7 @@ public class ListeCompteManager extends ActionSupport {
     private Client client;
     private String userInfo;
     private String compteInfo;
+    Logger logger = Logger.getLogger(getClass().getName());
 
     /**
      * Constructeur de la classe Connect
@@ -29,7 +31,7 @@ public class ListeCompteManager extends ActionSupport {
      * factory
      */
     public ListeCompteManager() {
-        System.out.println("In Constructor from ListeCompteManager class ");
+        logger.info("In Constructor from ListeCompteManager class ");
         ApplicationContext context = WebApplicationContextUtils
                 .getRequiredWebApplicationContext(ServletActionContext.getServletContext());
         this.banque = (BanqueFacade) context.getBean("banqueFacade");

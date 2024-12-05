@@ -70,3 +70,11 @@ Exécuter le scripte `RunSonar.bat` manuellement pour lancer l'analyse de code.
 Résultat :
 
 ![img.png](images/sonar/img-7.png)
+
+## Evaluation de la qualité de code
+
+**09/11/2024**
+![img.png](images/sonar/img-7.png)
+
+**23/11/2024**
+![img.png](images/sonar/img-8.png)

@@ -2,12 +2,15 @@ version: "3"
 
 services:
   app:
-    image: app:latest
     build:
       context: .
       dockerfile: Dockerfile
     ports:
       - "8082:8080"
+    env_file:
+      - .env
+    depends_on:
+      - app_db
 
   app_db:
     image: mysql:latest
@@ -22,6 +25,8 @@ services:
       - '3306'
     volumes:
       - app_db:/var/lib/mysql
+      - ./script/dumpSQL.sql:/docker-entrypoint-initdb.d/dumpSQL.sql
+#      - ./script/dumpSQL_JUnitTest.sql:/docker-entrypoint-initdb.d/dumpSQL_JUnitTest.sql
 
   sonarqube:
     image: sonarqube:8.9.10-community

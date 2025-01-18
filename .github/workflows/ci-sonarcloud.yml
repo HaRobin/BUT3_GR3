@@ -25,13 +25,21 @@ jobs:
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
-          java-version: '11'
+          java-version: '11"
           cache: maven
 
-      - name: Start Database with Docker Compose
+      - name: Install Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker-compose
+
+      - name: Start MySQL Database with Docker Compose
         run: |
           docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d
-          sleep 15  # Wait for DB to initialize
+          sleep 15  # Ensure MySQL has time to start
+
+      - name: Check Running Containers
+        run: docker ps  # Debugging step to ensure MySQL is running
 
       - name: Build and Run Tests
         run: mvn clean verify

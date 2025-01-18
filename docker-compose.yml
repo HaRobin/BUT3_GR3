@@ -8,10 +8,14 @@ services:
     env_file:
       - .env
     depends_on:
-      - app_db
+      app_db:
+        condition: service_healthy # Ensures app waits for app_db to be healthy
+    networks:
+      - java_app
 
   app_db:
     image: mysql:latest
+    command: --log-queries-not-using-indexes --general-log=1 --general-log-file=/var/lib/mysql/mysql.log
     environment:
       MYSQL_ROOT_PASSWORD: root #tochange
       MYSQL_DATABASE: bankiut
@@ -21,10 +25,17 @@ services:
       - "3308:3306"
     expose:
       - '3306'
+    networks:
+      - java_app
     volumes:
       - app_db:/var/lib/mysql
       - ./script/dumpSQL.sql:/docker-entrypoint-initdb.d/dumpSQL.sql
-#      - ./script/dumpSQL_JUnitTest.sql:/docker-entrypoint-initdb.d/dumpSQL_JUnitTest.sql
+    healthcheck: # Add a health check for the database
+      test: [ "CMD", "mysqladmin", "ping", "-h", "app_db", "-u", "app", "-papp" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
 
   sonarqube:
     image: sonarqube:8.9.10-community
@@ -61,3 +72,7 @@ volumes:
   postgresql:
   postgresql_data:
   app_db:
+
+networks:
+  java_app:
+    driver: bridge

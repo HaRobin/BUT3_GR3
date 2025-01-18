@@ -28,12 +28,10 @@ jobs:
           java-version: '11'
           cache: maven
 
-      - name: Cache SonarCloud packages
-        uses: actions/cache@v3
-        with:
-          path: ~/.sonar/cache
-          key: ${{ runner.os }}-sonar
-          restore-keys: ${{ runner.os }}-sonar
+      - name: Start Database with Docker Compose
+        run: |
+          docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d
+          sleep 15  # Wait for DB to initialize
 
       - name: Build and Run Tests
         run: mvn clean verify
@@ -42,3 +40,6 @@ jobs:
         run: mvn sonar:sonar -Dsonar.projectKey=your_project_key -Dsonar.organization=your_org_name
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      - name: Shutdown Database
+        run: docker-compose down

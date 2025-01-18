@@ -33,9 +33,12 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y docker-compose
 
+      - name: Create .env file
+        run: echo "${{ secrets.ENV_FILE_CONTENT }}" > .env
+
       - name: Start MySQL Database with Docker Compose
         run: |
-          docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d
+          docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d app_db
           sleep 15  # Ensure MySQL has time to start
 
       - name: Check Running Containers

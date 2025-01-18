@@ -1,0 +1,5 @@
+version: "3.8"
+services:
+  app_db:
+    volumes:
+      - ./script/dumpSQL_JUnitTest.sql:/docker-entrypoint-initdb.d/dumpSQL.sql

@@ -25,15 +25,21 @@ jobs:
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
-          java-version: '11'
+          java-version: '11"
           cache: maven
 
-      - name: Cache SonarCloud packages
-        uses: actions/cache@v3
-        with:
-          path: ~/.sonar/cache
-          key: ${{ runner.os }}-sonar
-          restore-keys: ${{ runner.os }}-sonar
+      - name: Install Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker-compose
+
+      - name: Start MySQL Database with Docker Compose
+        run: |
+          docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d
+          sleep 15  # Ensure MySQL has time to start
+
+      - name: Check Running Containers
+        run: docker ps  # Debugging step to ensure MySQL is running
 
       - name: Build and Run Tests
         run: mvn clean verify
@@ -42,3 +48,6 @@ jobs:
         run: mvn sonar:sonar -Dsonar.projectKey=your_project_key -Dsonar.organization=your_org_name
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      - name: Shutdown Database
+        run: docker-compose down

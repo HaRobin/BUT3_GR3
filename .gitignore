@@ -50,3 +50,6 @@ replay_pid*
 /dist/
 /nbdist/
 /.nb-gradle/
+
+### Environment ###
+*.env

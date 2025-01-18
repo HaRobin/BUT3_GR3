@@ -43,12 +43,10 @@
         de la connection -->
     <bean id="dataSource" scope="singleton"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName"
-                  value="com.mysql.jdbc.Driver"/>
-
-        <property name="url" value="jdbc:mysql://localhost:3306/bankiut?useSSL=false"/>
-        <property name="username" value="root"/>
-        <property name="password" value=""/>
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://app_db:3306/bankiut?useSSL=false"/>
+        <property name="username" value="app"/>
+        <property name="password" value="app"/>
     </bean>
 
     <!-- ============= Gestion des Transactions ============= -->

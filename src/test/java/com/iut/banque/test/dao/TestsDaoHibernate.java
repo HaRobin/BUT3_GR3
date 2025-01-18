@@ -5,6 +5,7 @@ import com.iut.banque.exceptions.IllegalFormatException;
 import com.iut.banque.exceptions.IllegalOperationException;
 import com.iut.banque.exceptions.TechnicalException;
 import com.iut.banque.modele.*;
+import org.hibernate.Session;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -293,6 +294,40 @@ public class TestsDaoHibernate {
             fail("L'utilisateur n'a pas été supprimé.");
         }
     }
+
+    // Test delete user inexistant
+    @Test
+    public void testDeleteNullUser() {
+        Utilisateur user = daoHibernate.getUserById("c.notexist");
+        try{
+            daoHibernate.deleteUser(user);
+        }catch(TechnicalException e){
+            assertTrue(e instanceof TechnicalException);
+        }
+    }
+
+    // Test delete user inexistant
+    @Test
+    public void testDeleteNullAccount() {
+        Compte compte = daoHibernate.getAccountById("notexist");
+        try{
+            daoHibernate.deleteAccount(compte);
+        }catch(TechnicalException e){
+            assertTrue(e instanceof TechnicalException);
+        }
+    }
+
+    // Test update user TODO
+//    @Test
+//    public void testUpdateUser() {
+//        Utilisateur user = daoHibernate.getUserById("c.exist");
+//    }
+
+    // Test update account TODO DANS TEST BANQUE MANAGER
+//    @Test
+//    public void testUpdateUser() {
+//        Compte compte = daoHibernate.getAccountById("AB7328887341");
+//    }
 
     @Test
     public void testIsUserAllowedUser() {

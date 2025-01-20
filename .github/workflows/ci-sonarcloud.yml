@@ -15,6 +15,22 @@ jobs:
     name: Build and Analyze
     runs-on: ubuntu-latest
 
+    services:
+      mysql:
+        image: mysql:8
+        env:
+          MYSQL_ROOT_PASSWORD: rootpassword
+          MYSQL_DATABASE: bankiuttest
+          MYSQL_USER: myuser
+          MYSQL_PASSWORD: mypassword
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h localhost -u myuser -pmypassword"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -28,21 +44,13 @@ jobs:
           java-version: '11'
           cache: maven
 
-      - name: Install Docker Compose
+      - name: Wait for MySQL to Be Ready
+        run: sleep 20  # Ensure MySQL has time to start
+
+      - name: Load Seed Data into MySQL
         run: |
-          sudo apt-get update
-          sudo apt-get install -y docker-compose
-
-      - name: Create .env file
-        run: echo "${{ secrets.ENV_FILE_CONTENT }}" > .env
-
-      - name: Start MySQL Database with Docker Compose
-        run: |
-          docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d app_db
-          sleep 15  # Ensure MySQL has time to start
-
-      - name: Check Running Containers
-        run: docker ps  # Debugging step to ensure MySQL is running
+          sudo apt-get install -y mysql-client
+          mysql -h 127.0.0.1 -u myuser -pmypassword bankiuttest < script/dumpSQL_JUnitTest.sql
 
       - name: Build and Run Tests
         run: mvn clean verify
@@ -51,6 +59,3 @@ jobs:
         run: mvn sonar:sonar -Dsonar.projectKey=your_project_key -Dsonar.organization=your_org_name
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
-      - name: Shutdown Database
-        run: docker-compose down

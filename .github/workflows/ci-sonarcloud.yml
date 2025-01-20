@@ -26,10 +26,10 @@ jobs:
         ports:
           - 3306:3306
         options: >-
-          --health-cmd="mysqladmin ping -h localhost -u myuser -pmypassword"
-          --health-interval=10s
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -u myuser -pmypassword"
+          --health-interval=5s
           --health-timeout=5s
-          --health-retries=5
+          --health-retries=10
 
     steps:
       - name: Checkout Repository
@@ -44,13 +44,22 @@ jobs:
           java-version: '11'
           cache: maven
 
-      - name: Wait for MySQL to Be Ready
-        run: sleep 20  # Ensure MySQL has time to start
+      - name: Install MySQL Client
+        run: sudo apt-get install -y mysql-client
+
+      - name: Wait for MySQL to be Ready
+        run: |
+          for i in {1..30}; do
+            mysql -h 127.0.0.1 -u myuser -pmypassword -e "SELECT 1;" && break
+            echo "Waiting for MySQL..."
+            sleep 5
+          done
 
       - name: Load Seed Data into MySQL
-        run: |
-          sudo apt-get install -y mysql-client
-          mysql -h 127.0.0.1 -u myuser -pmypassword bankiuttest < script/dumpSQL_JUnitTest.sql
+        run: mysql -h 127.0.0.1 -u myuser -pmypassword bankiuttest < script/dumpSQL.sql
+
+      - name: Debug: Show MySQL Tables
+        run: mysql -h 127.0.0.1 -u myuser -pmypassword -D bankiuttest -e "SHOW TABLES;"
 
       - name: Build and Run Tests
         run: mvn clean verify

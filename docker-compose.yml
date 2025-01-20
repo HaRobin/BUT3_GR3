@@ -12,6 +12,8 @@ services:
         condition: service_healthy # Ensures app waits for app_db to be healthy
     networks:
       - java_app
+    profiles:
+      - app
 
   app_db:
     image: mysql:latest
@@ -30,6 +32,8 @@ services:
     volumes:
       - app_db:/var/lib/mysql
       - ./script/dumpSQL.sql:/docker-entrypoint-initdb.d/dumpSQL.sql
+    profiles:
+      - app
     healthcheck: # Add a health check for the database
       test: [ "CMD", "mysqladmin", "ping", "-h", "app_db", "-u", "app", "-papp" ]
       interval: 10s
@@ -53,6 +57,8 @@ services:
       - "9000:9000"
     profiles:
       - sonar
+    networks:
+      - sonar_network
 
   sonar_db:
     image: postgres:12
@@ -64,6 +70,8 @@ services:
       - postgresql_data:/var/lib/postgresql/data
     profiles:
       - sonar
+    networks:
+      - sonar_network
 
 volumes:
   sonarqube_data:
@@ -75,4 +83,6 @@ volumes:
 
 networks:
   java_app:
+    driver: bridge
+  sonar_network:
     driver: bridge

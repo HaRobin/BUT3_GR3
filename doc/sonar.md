@@ -39,13 +39,13 @@ machine : [https://docs.docker.com/get-docker/](https://docs.docker.com/get-dock
 Pour installer SonarQube, il vous suffit de lancer la commande suivante :
 
 ```shell
-docker compose up -d --build 
+docker compose --profile sonar up -d --build 
 ```
 
 Pour toutes les marriage suivant, il vous suffira de lancer la commande suivante :
 
 ```shell
-docker compose up -d
+docker compose --profile sonar up -d
 ```
 
 ### Configuration de SonarQube
@@ -78,3 +78,6 @@ Résultat :
 
 **23/11/2024**
 ![img.png](images/sonar/img-8.png)
+
+**20/01/2025**
+![img.png](images/sonar/img-9.png)

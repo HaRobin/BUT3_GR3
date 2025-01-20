@@ -1,6 +1,8 @@
 package com.iut.banque.test.facade;
 
+import com.iut.banque.exceptions.IllegalFormatException;
 import com.iut.banque.exceptions.IllegalOperationException;
+import com.iut.banque.exceptions.InsufficientFundsException;
 import com.iut.banque.facade.BanqueManager;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -165,5 +167,20 @@ public class TestsBanqueManager {
             fail("Une Exception " + te.getClass().getSimpleName() + " a été récupérée");
         }
     }
+
+    /**
+     *Test Méthode qui crédite un compte
+     */
+    @Test //TODO DOIT ETRE FINI TEST MONTATN AVANT APRES DEBIT ETC ETC
+    public void testDebiterCompte() throws IllegalFormatException, InsufficientFundsException {
+        double montant = 100.0;
+        try{
+            bm.debiter(bm.getAccountById("AB7328887341"), montant);
+        }catch(InsufficientFundsException e){
+
+        }
+    }
+
+
 
 }

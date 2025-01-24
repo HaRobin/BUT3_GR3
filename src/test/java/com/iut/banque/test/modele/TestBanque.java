@@ -29,6 +29,9 @@ public class TestBanque {
     private Compte mockCompte;
 
     @Mock
+    Compte spyCompte;
+
+    @Mock
     private CompteAvecDecouvert mockCompteAvecDecouvert;
 
     @Before
@@ -57,11 +60,13 @@ public class TestBanque {
     @Test
     public void testDebiterCompteAvecSoldeSuffisant() throws InsufficientFundsException, IllegalFormatException { // il faut faire en sorte que 1500 euros soit vraiment sur le compte sans utiliser when et thenreturn >>>> UTILISER SPY
 
-        mockCompte.crediter(1500.0);
+        spyCompte = Mockito.spy(new CompteAvecDecouvert());
 
-        mockCompte.debiter(500.0);
+        spyCompte.crediter(1500.0);
 
-        assertEquals(1000.0, mockCompte.getSolde(), 0.001);
+        banque.debiter(spyCompte, 500.0);
+
+        assertEquals(1000.0, spyCompte.getSolde(), 0.001);
 
     }
 
@@ -82,11 +87,12 @@ public class TestBanque {
 
     @Test
     public void testCrediter() throws IllegalFormatException {
-        doNothing().when(mockCompte).crediter(200.0);
 
-        banque.crediter(mockCompte, 200.0);
+        spyCompte = Mockito.spy(new CompteAvecDecouvert());
 
-        assertEquals(500.0, mockCompte.getSolde(), 0.001);
+        banque.crediter(spyCompte, 200.0);
+
+        assertEquals(200.0, spyCompte.getSolde(), 0.001);
     }
 
     @Test

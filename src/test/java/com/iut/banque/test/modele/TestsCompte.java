@@ -1,14 +1,17 @@
 package com.iut.banque.test.modele;
 
 import com.iut.banque.exceptions.IllegalFormatException;
+import com.iut.banque.exceptions.InsufficientFundsException;
 import com.iut.banque.modele.Client;
 import com.iut.banque.modele.Compte;
 import com.iut.banque.modele.CompteSansDecouvert;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests en rapport avec la méthode "créditer" de la classe Banque
@@ -16,10 +19,12 @@ import static org.junit.Assert.fail;
 public class TestsCompte {
 
     private Compte compte;
+    private Client client;
 
     @Before
     public void setUp() throws IllegalFormatException {
-        compte = new CompteSansDecouvert("WU1234567890", 0, new Client());
+        client = new Client();
+        compte = new CompteSansDecouvert("AB7328887341", 0, client);
     }
 
     /**
@@ -67,7 +72,7 @@ public class TestsCompte {
     @Test
     public void testConstruireCompteAvecFormatNumeroCompteIncorrect() {
         try {
-            compte = new CompteSansDecouvert("&éþ_ëüú¤", 0, new Client());
+            compte = new CompteSansDecouvert("&éþ_ëüú¤", 0, client);
             fail("Exception non renvoyée par le constructeur avec un format de numéro de compte incorrect");
         } catch (IllegalFormatException ife) {
         } catch (Exception e) {
@@ -138,5 +143,34 @@ public class TestsCompte {
         if (Compte.checkFormatNumeroCompte(strNumCompte)) {
             fail("String " + strNumCompte + " validée dans le test");
         }
+    }
+
+    @Test
+    public void testNumeroCompteNull() throws IllegalFormatException {
+        try {
+            compte = new CompteSansDecouvert(null, 0, client);
+            assertTrue("L'exception IllegalFormatException n'a pas été lancée !", false);
+        } catch (IllegalFormatException e) {
+            assertTrue(e instanceof IllegalFormatException);
+        }
+    }
+
+    @Test
+    public void testToString() throws IllegalFormatException {
+        Map<String, Compte> comptes = new HashMap<>();
+        comptes.put("AB7328887341", compte);
+
+        client.setUserId("a.ade1");
+        client.setNom("a");
+        client.setPrenom("a");
+        client.setAdresse("2 rue des cafards");
+        client.setMale(true);
+        client.setNumeroClient("9865432100");
+        client.setUserPwd("aaa");
+        client.setAccounts(comptes);
+
+        String expected = "CompteSansDecouvert [numeroCompte=AB7328887341, solde=0.0, owner=Client [userId=" + client.getUserId()+ ", nom=" + client.getNom() + ", prenom=" + client.getPrenom() + ", adresse=" + client.getAdresse() + ", male=" + client.isMale() + ", userPwd=" + client.getUserPwd() + ", numeroClient=" + client.getNumeroClient() + ", accounts=" + client.getAccounts().size() + "]]";
+
+        assertEquals(expected, compte.toString());
     }
 }

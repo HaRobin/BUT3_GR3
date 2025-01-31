@@ -115,9 +115,16 @@ public class Client extends Utilisateur {
      */
     @Override
     public String toString() {
-        return "Client [userId=" + getUserId() + ", nom=" + getNom() + ", prenom=" + getPrenom() + ", adresse="
-                + getAdresse() + ", male=" + isMale() + ", userPwd=" + getUserPwd() + ", numeroClient=" + numeroClient
-                + ", accounts=" + accounts.size() + "]";
+        return "Client [userId=" + (getUserId() != null ? getUserId() : "Unknown")
+                + ", nom=" + (getNom() != null ? getNom() : "Unknown")
+                + ", prenom=" + (getPrenom() != null ? getPrenom() : "Unknown")
+                + ", adresse=" + (getAdresse() != null ? getAdresse() : "Unknown")
+                + ", male=" + isMale()
+                + ", userPwd=" + (getUserPwd() != null ? getUserPwd() : "Unknown")
+                + ", numeroClient=" + (numeroClient != null ? numeroClient : "Unknown")
+                + ", accounts=" + (accounts != null ? accounts.size() : 0)
+                + "]";
+
     }
 
     /**

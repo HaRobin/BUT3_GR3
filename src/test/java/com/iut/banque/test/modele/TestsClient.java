@@ -3,10 +3,14 @@ package com.iut.banque.test.modele;
 import com.iut.banque.exceptions.IllegalFormatException;
 import com.iut.banque.exceptions.IllegalOperationException;
 import com.iut.banque.modele.Client;
+import com.iut.banque.modele.Compte;
 import com.iut.banque.modele.CompteAvecDecouvert;
 import com.iut.banque.modele.CompteSansDecouvert;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.Assert.*;
 
@@ -102,5 +106,50 @@ public class TestsClient {
     public void testToStringWithRegex() {
         String result = client.toString();
         assertTrue(result.matches(".*userId=j\\.doe1.*nom=John.*prenom=Doe.*adresse=20 rue Bouvier.*male=true.*numeroClient=1234567890.*"));
+    }
+
+    @Test
+    public void testSetNumeroClient_CorrectFormat() throws IllegalFormatException {
+        client.setNumeroClient("0987654321");
+        assertEquals("0987654321", client.getNumeroClient());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetNumeroClient_NullValue() throws IllegalFormatException {
+        client.setNumeroClient(null);
+    }
+
+    @Test(expected = IllegalFormatException.class)
+    public void testSetNumeroClient_IncorrectFormat() throws IllegalFormatException {
+        client.setNumeroClient("12a456789");
+    }
+
+    @Test
+    public void testSetUserId_CorrectFormat() throws IllegalFormatException {
+        client.setUserId("b.user123");
+        assertEquals("b.user123", client.getUserId());
+    }
+
+    @Test(expected = IllegalFormatException.class)
+    public void testSetUserId_IncorrectFormat() throws IllegalFormatException {
+        client.setUserId("user!23");
+    }
+
+    @Test
+    public void testGetIdentity() {
+        assertEquals("Doe John (1234567890)", client.getIdentity());
+    }
+
+    @Test
+    public void testSetAccounts() throws IllegalFormatException, IllegalOperationException{
+        Map<String, Compte> comptes = new HashMap<>();
+        comptes.put("FR1234567890", new CompteSansDecouvert("FR1234567890", 100, client));
+        comptes.put("FR0987654321", new CompteAvecDecouvert("FR0987654321", -50, 200, client));
+
+        client.setAccounts(comptes);
+
+        assertEquals(2, client.getAccounts().size());
+        assertTrue(client.getAccounts().containsKey("FR1234567890"));
+        assertTrue(client.getAccounts().containsKey("FR0987654321"));
     }
 }

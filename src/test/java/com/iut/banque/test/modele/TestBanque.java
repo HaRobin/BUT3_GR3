@@ -124,4 +124,30 @@ public class TestBanque {
         // verifie que la méthode setDecouverAutorise a été appelée une fois
         verify(mockCompteAvecDecouvert, times(1)).setDecouverAutorise(-500.0);
     }
+
+    @Test
+    public void testGetAccounts_NotNull() {
+        assertNotNull(banque.getAccounts());
+    }
+
+    @Test
+    public void testGetAccounts_CorrectSize() {
+        assertEquals(1, banque.getAccounts().size());
+    }
+
+    @Test
+    public void testGetAccounts_ContainsCorrectKeys() {
+        assertTrue(banque.getAccounts().containsKey("compte1"));
+    }
+
+    @Test
+    public void testGetAccounts_ContainsCorrectValues() {
+        assertSame(mockCompte, banque.getAccounts().get("compte1"));
+    }
+
+    @Test
+    public void testGetAccounts_EmptyMap() {
+        banque.setAccounts(new HashMap<>()); // On vide la map
+        assertTrue(banque.getAccounts().isEmpty());
+    }
 }

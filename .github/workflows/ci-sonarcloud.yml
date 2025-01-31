@@ -44,8 +44,15 @@ jobs:
           java-version: '11'
           cache: maven
 
+      - name: Install Maven
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y maven
+
       - name: Install MySQL Client
-        run: sudo apt-get install -y mysql-client
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y default-mysql-client
 
       - name: Wait for MySQL to be Ready
         run: |
@@ -58,7 +65,7 @@ jobs:
       - name: Load Seed Data into MySQL
         run: mysql -h 127.0.0.1 -u myuser -pmypassword bankiuttest < script/dumpSQL.sql
 
-      - name: Debug: Show MySQL Tables
+      - name: Show MySQL Tables
         run: mysql -h 127.0.0.1 -u myuser -pmypassword -D bankiuttest -e "SHOW TABLES;"
 
       - name: Build and Run Tests

@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - test
+      - dev_robin
   pull_request:
     branches:
       - main
@@ -19,14 +20,12 @@ jobs:
       mysql:
         image: mysql:8
         env:
-          MYSQL_ROOT_PASSWORD: rootpassword
+          MYSQL_ALLOW_EMPTY_PASSWORD: "yes"  # Explicitly allow root without password
           MYSQL_DATABASE: bankiuttest
-          MYSQL_USER: myuser
-          MYSQL_PASSWORD: mypassword
         ports:
           - 3306:3306
         options: >-
-          --health-cmd="mysqladmin ping -h 127.0.0.1 -u myuser -pmypassword"
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -u root"
           --health-interval=5s
           --health-timeout=5s
           --health-retries=10
@@ -57,21 +56,28 @@ jobs:
       - name: Wait for MySQL to be Ready
         run: |
           for i in {1..30}; do
-            mysql -h 127.0.0.1 -u myuser -pmypassword -e "SELECT 1;" && break
+            mysql -h 127.0.0.1 -u root -e "SELECT 1;" && break
             echo "Waiting for MySQL..."
             sleep 5
           done
 
       - name: Load Seed Data into MySQL
-        run: mysql -h 127.0.0.1 -u myuser -pmypassword bankiuttest < script/dumpSQL.sql
+        run: mysql -h 127.0.0.1 -u root bankiuttest < script/dumpSQL.sql
 
-      - name: Show MySQL Tables
-        run: mysql -h 127.0.0.1 -u myuser -pmypassword -D bankiuttest -e "SHOW TABLES;"
+      - name: Show MySQL Tables and data
+        run: mysql -h 127.0.0.1 -u root -D bankiuttest -e "SHOW TABLES; SELECT * FROM Utilisateur;"
 
       - name: Build and Run Tests
         run: mvn clean verify
 
+      # Switch to Java 17 for SonarCloud
+      - name: Set up JDK 17 for SonarCloud
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
       - name: Run SonarCloud Analysis
-        run: mvn sonar:sonar -Dsonar.projectKey=your_project_key -Dsonar.organization=your_org_name
+        run: mvn sonar:sonar -Dsonar.projectKey=${{ secrets.PROJECT_KEY }} -Dsonar.organization=${{ secrets.ORGA_KEY }} -Dsonar.branch.name=${{ github.ref_name }}
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

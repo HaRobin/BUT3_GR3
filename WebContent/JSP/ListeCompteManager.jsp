@@ -11,7 +11,7 @@
     FALSE</s:else>-->
 
 
-<html>
+<html lang="fr" xml:lang="fr">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Liste des comptes de la banque</title>
@@ -40,10 +40,19 @@
     <p>Voici l'état des comptes de la banque :</p>
 </s:else>
 <table>
+    <caption>Liste des comptes de la banque</caption>
+    <thead>
+    <tr>
+        <th id="accountNumber">Numéro de compte</th>
+        <th id="accountType">Type</th>
+        <th id="accountBalance">Solde</th>
+        <th id="accountActions">Actions</th>
+    </tr>
+    </thead>
     <s:iterator value="allClients">
         <s:if test="(value.possedeComptesADecouvert() || !aDecouvert)">
             <tr>
-                <td colspan="3"><b>Client :</b> <s:property
+                <td colspan="3"><strong>Client :</strong> <s:property
                         value="value.prenom"/> <s:property value="value.nom"/> (n°<s:property
                         value="value.numeroClient"/>)
                 </td>

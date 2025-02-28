@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib prefix="s" uri="/struts-tags" %>
 
-<html>
+<html lang="fr" xml:lang="fr">
 <head>
     <title>Tableau de bord - Gestionnaire</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -16,8 +16,8 @@
 </div>
 <h1>Tableau de bord - Gestionnaire</h1>
 
-<p>Bienvenue <b><s:property value="connectedUser.prenom"/> <s:property value="connectedUser.nom"/></b> !</p>
-<p>Que voulez vous faire ?</p>
+<p>Bienvenue <strong><s:property value="connectedUser.prenom"/> <s:property value="connectedUser.nom"/></strong> !</p>
+<p>Que voulez-vous faire ?</p>
 <p>
     <s:url action="listeCompteManager" var="urlListeCompteManager">
         <s:param name="aDecouvert">false</s:param>

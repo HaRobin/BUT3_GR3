@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib prefix="s" uri="/struts-tags" %>
 
-<html>
+<html lang="fr" xml:lang="fr">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Tableau de bord</title>
@@ -16,16 +16,19 @@
 </div>
 <h1>Tableau de bord</h1>
 <p>
-    Bienvenue <b><s:property value="connectedUser.prenom"/> <s:property
-        value="connectedUser.nom"/></b> !
+    Bienvenue <strong><s:property value="connectedUser.prenom"/> <s:property
+        value="connectedUser.nom"/></strong> !
 </p>
 <p>Voici l'état de vos comptes :</p>
 <table>
+    <caption>Informations relatives à votre compte</caption>
+    <thead>
     <tr>
-        <td><b>Numéro de compte</b></td>
-        <td><b>Type de compte</b></td>
-        <td><b>Solde actuel</b></td>
+        <th id="accountNumber">Numéro de compte</th>
+        <th id="accountType">Type de compte</th>
+        <th id="currentBalance">Solde actuel</th>
     </tr>
+    </thead>
     <s:iterator value="accounts">
         <tr>
             <td><s:url action="urlDetail" var="urlDetail">

@@ -16,13 +16,13 @@ import java.util.logging.Logger;
 public class ListeCompteManager extends ActionSupport {
 
     private static final long serialVersionUID = 1L;
-    private BanqueFacade banque;
+    transient BanqueFacade banque;
     private boolean aDecouvert;
-    private Compte compte;
-    private Client client;
+    transient Compte compte;
+    transient Client client;
     private String userInfo;
     private String compteInfo;
-    Logger logger = Logger.getLogger(getClass().getName());
+    transient Logger logger = Logger.getLogger(getClass().getName());
 
     /**
      * Constructeur de la classe Connect

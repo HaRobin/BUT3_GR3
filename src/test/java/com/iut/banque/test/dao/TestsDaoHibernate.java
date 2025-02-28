@@ -29,7 +29,7 @@ import static org.junit.Assert.*;
 // @ContextConfiguration permet de charger le context utilisé pendant les tests.
 // Par défault (si aucun argument n'est précisé), cherche le fichier
 // TestsDaoHibernate-context.xml dans le même dosssier que la classe
-@ContextConfiguration("/test/resources/TestsDaoHibernate-context.xml")
+@ContextConfiguration("classpath:TestsDaoHibernate-context.xml")
 @Transactional("transactionManager")
 public class TestsDaoHibernate {
 
@@ -199,6 +199,7 @@ public class TestsDaoHibernate {
         if (accounts.size() != 0) {
             fail("Ce client ne devrait pas avoir de compte.");
         }
+//        assertFalse(accounts.isEmpty());
     }
 
     @Test

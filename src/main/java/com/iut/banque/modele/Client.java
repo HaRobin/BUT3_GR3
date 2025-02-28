@@ -39,13 +39,12 @@ public class Client extends Utilisateur {
 
     /**
      * {@inheritDoc}
-     *
-     * @throws IllegalFormatException
      */
     @Override
     public void setUserId(String userId) throws IllegalFormatException {
         if (!Client.checkFormatUserIdClient(userId)) {
             throw new IllegalFormatException("L'identifiant n'est pas au bon format.");
+
         }
         super.setUserId(userId);
     }
@@ -115,9 +114,17 @@ public class Client extends Utilisateur {
      */
     @Override
     public String toString() {
-        return "Client [userId=" + getUserId() + ", nom=" + getNom() + ", prenom=" + getPrenom() + ", adresse="
-                + getAdresse() + ", male=" + isMale() + ", userPwd=" + getUserPwd() + ", numeroClient=" + numeroClient
-                + ", accounts=" + accounts.size() + "]";
+        String unknown = "Unknown";
+        return "Client [userId=" + (getUserId() != null ? getUserId() : unknown)
+                + ", nom=" + (getNom() != null ? getNom() : unknown)
+                + ", prenom=" + (getPrenom() != null ? getPrenom() : unknown)
+                + ", adresse=" + (getAdresse() != null ? getAdresse() : unknown)
+                + ", male=" + isMale()
+                + ", userPwd=" + (getUserPwd() != null ? getUserPwd() : unknown)
+                + ", numeroClient=" + (numeroClient != null ? numeroClient : unknown)
+                + ", accounts=" + (accounts != null ? accounts.size() : 0)
+                + "]";
+
     }
 
     /**

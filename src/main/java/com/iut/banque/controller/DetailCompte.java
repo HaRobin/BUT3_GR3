@@ -14,13 +14,13 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 import java.util.logging.Logger;
 
 public class DetailCompte extends ActionSupport {
-    private Logger logger = Logger.getLogger(getClass().getName());
+    transient Logger logger = Logger.getLogger(getClass().getName());
 
     private static final long serialVersionUID = 1L;
-    protected BanqueFacade banque;
+    transient BanqueFacade banque;
     private String montant;
     private String error;
-    protected Compte compte;
+    transient Compte compte;
     private static final String NEGATIVEAMOUNT = "NEGATIVEAMOUNT";
 
     /**
@@ -50,7 +50,7 @@ public class DetailCompte extends ActionSupport {
                 return "Erreur interne. Verifiez votre saisie puis réessayer. Contactez votre conseiller si le problème persiste.";
             case "BUSINESS":
                 return "Fonds insuffisants.";
-            case "NEGATIVEAMOUNT":
+            case NEGATIVEAMOUNT:
                 return "Veuillez rentrer un montant positif.";
             case "NEGATIVEOVERDRAFT":
                 return "Veuillez rentrer un découvert positif.";
@@ -123,9 +123,9 @@ public class DetailCompte extends ActionSupport {
      * ou pas)
      */
     public String debit() {
-        Compte compte = getCompte();
+        Compte localCompte = getCompte();
         try {
-            banque.debiter(compte, Double.parseDouble(montant.trim()));
+            banque.debiter(localCompte, Double.parseDouble(montant.trim()));
             return "SUCCESS";
         } catch (NumberFormatException e) {
             e.printStackTrace();
@@ -146,9 +146,9 @@ public class DetailCompte extends ActionSupport {
      * ou pas)
      */
     public String credit() {
-        Compte compte = getCompte();
+        Compte localCompte = getCompte();
         try {
-            banque.crediter(compte, Double.parseDouble(montant.trim()));
+            banque.crediter(localCompte, Double.parseDouble(montant.trim()));
             return "SUCCESS";
         } catch (NumberFormatException nfe) {
             nfe.printStackTrace();

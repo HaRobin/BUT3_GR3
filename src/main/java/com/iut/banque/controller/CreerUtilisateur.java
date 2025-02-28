@@ -14,10 +14,10 @@ import java.util.logging.Logger;
 
 public class CreerUtilisateur extends ActionSupport {
 
-    Logger logger = Logger.getLogger(getClass().getName());
+    transient Logger logger = Logger.getLogger(getClass().getName());
 
     private static final long serialVersionUID = 1L;
-    private BanqueFacade banque;
+    transient BanqueFacade banque;
     private String userId;
     private String nom;
     private String prenom;

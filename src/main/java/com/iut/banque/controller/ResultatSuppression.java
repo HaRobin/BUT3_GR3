@@ -7,8 +7,8 @@ import com.opensymphony.xwork2.ActionSupport;
 public class ResultatSuppression extends ActionSupport {
 
     private static final long serialVersionUID = 1L;
-    private Compte compte;
-    private Client client;
+    transient Compte compte;
+    transient Client client;
     private String compteInfo;
     private String userInfo;
     private boolean error;

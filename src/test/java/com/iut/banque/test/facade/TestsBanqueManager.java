@@ -4,6 +4,8 @@ import com.iut.banque.exceptions.IllegalFormatException;
 import com.iut.banque.exceptions.IllegalOperationException;
 import com.iut.banque.exceptions.InsufficientFundsException;
 import com.iut.banque.facade.BanqueManager;
+import com.iut.banque.modele.Compte;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +20,7 @@ import static org.junit.Assert.fail;
 // @ContextConfiguration permet de charger le context utilisé pendant les tests.
 // Par défault (si aucun argument n'est précisé), cherche le fichier
 /// src/com/iut/banque/test/TestsDaoHibernate-context.xml
-@ContextConfiguration("/test/resources/TestsBanqueManager-context.xml")
+@ContextConfiguration("classpath:TestsBanqueManager-context.xml")
 @Transactional("transactionManager")
 public class TestsBanqueManager {
 
@@ -174,13 +176,14 @@ public class TestsBanqueManager {
     @Test //TODO DOIT ETRE FINI TEST MONTATN AVANT APRES DEBIT ETC ETC
     public void testDebiterCompte() throws IllegalFormatException, InsufficientFundsException {
         double montant = 100.0;
+        Compte c = bm.getAccountById("AB7328887341");
+        double soldeAvant = c.getSolde();
         try{
-            bm.debiter(bm.getAccountById("AB7328887341"), montant);
-        }catch(InsufficientFundsException e){
-
+            bm.debiter(c, montant);
+        } catch (InsufficientFundsException e) {
+            fail("InsufficientFundsException should not have been thrown");
         }
+        double soldeApres = c.getSolde();
+        Assert.assertEquals(soldeAvant - montant, soldeApres, 0.01);
     }
-
-
-
 }

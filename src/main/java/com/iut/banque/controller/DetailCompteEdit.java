@@ -4,11 +4,7 @@ import com.iut.banque.exceptions.IllegalFormatException;
 import com.iut.banque.exceptions.IllegalOperationException;
 import com.iut.banque.modele.CompteAvecDecouvert;
 
-import java.util.logging.Logger;
-
 public class DetailCompteEdit extends DetailCompte {
-    private Logger logger = Logger.getLogger(getClass().getName());
-
     private static final long serialVersionUID = 1L;
     private String decouvertAutorise;
 

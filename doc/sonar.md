@@ -51,13 +51,12 @@ docker compose --profile sonar up -d
 ### Configuration de SonarQube
 
 Pour accéder à l'interface de SonarQube, il vous suffit d'ouvrir votre navigateur et de vous rendre à l'adresse
-suivante : [http://localhost:9001/](http://localhost:9001/), connectez-vous une première fois avec les identifiants
+suivante : [http://localhost:9000/](http://localhost:9000/), connectez-vous une première fois avec les identifiants
 suivants : `admin` / `admin` puis reconfigurer les identifiants.
 
 Configurer le projet SonarQube en suivant les étapes suivantes :
 
 A VENIR
-
 
 ### Utilisation de SonarQube
 
@@ -81,3 +80,12 @@ Résultat :
 
 **20/01/2025**
 ![img.png](images/sonar/img-9.png)
+
+**28/02/2025**
+![img.png](images/sonar/img-10.png)
+Pour des raisons qui nous sont inconnues, certain test ne sont pas pris en compte par SonarQube. Voici le taux de
+coverage estimer par IntelliJ IDEA :
+![img.png](images/sonar/img-11.png)
+Également, nous avons grandement réduit le nombre de bug et de code smell dans notre projet. Cela n'est pas facile à
+observer sur le screen précédent, en voici un meilleur :
+![img.png](images/sonar/im-12.png)

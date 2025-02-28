@@ -10,11 +10,6 @@ h1 {
     margin-right: 20px;
 }
 
-table {
-    margin-right: auto;
-    margin-left: auto;
-}
-
 td {
     border: 1px solid black;
     text-align: center
@@ -24,6 +19,8 @@ table {
     padding: 5px;
     text-align: center;
     border: 3px outset blue;
+    margin-right: auto;
+    margin-left: auto;
 }
 
 table > thead {

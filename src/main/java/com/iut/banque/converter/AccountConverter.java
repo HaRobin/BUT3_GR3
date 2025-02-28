@@ -31,7 +31,7 @@ public class AccountConverter extends StrutsTypeConverter {
      * Ainsi, au chargement de l'application, trois objets de cette classe sont
      * instanciés et seulement le premier a une DAO injectée correctement.
      */
-    private static IDao dao;
+    private IDao dao;
 
     /**
      * Constructeur avec paramêtre pour le AccountConverter.
@@ -42,7 +42,7 @@ public class AccountConverter extends StrutsTypeConverter {
     public AccountConverter(IDao dao) {
         logger.info("=========================");
         logger.info("Création du convertisseur de compte");
-        AccountConverter.dao = dao;
+        this.dao = dao;
     }
 
     /**

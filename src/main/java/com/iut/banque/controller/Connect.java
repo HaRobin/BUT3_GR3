@@ -16,12 +16,12 @@ import java.util.logging.Logger;
 
 public class Connect extends ActionSupport {
 
-    private Logger logger = Logger.getLogger(getClass().getName());
+    transient Logger logger = Logger.getLogger(getClass().getName());
 
     private static final long serialVersionUID = 1L;
     private String userCde;
     private String userPwd;
-    private BanqueFacade banque;
+    transient BanqueFacade banque;
     private static final String ERROR = "ERROR";
 
     /**

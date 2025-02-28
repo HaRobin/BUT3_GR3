@@ -58,7 +58,6 @@ Configurer le projet SonarQube en suivant les étapes suivantes :
 
 A VENIR
 
-
 ### Utilisation de SonarQube
 
 Exécuter le scripte `RunSonar.bat` manuellement pour lancer l'analyse de code.
@@ -81,3 +80,12 @@ Résultat :
 
 **20/01/2025**
 ![img.png](images/sonar/img-9.png)
+
+**28/02/2025**
+![img.png](images/sonar/img-10.png)
+Pour des raisons qui nous sont inconnues, certain test ne sont pas pris en compte par SonarQube. Voici le taux de
+coverage estimer par IntelliJ IDEA :
+![img.png](images/sonar/img-11.png)
+Également, nous avons grandement réduit le nombre de bug et de code smell dans notre projet. Cela n'est pas facile à
+observer sur le screen précédent, en voici un meilleur :
+![img.png](images/sonar/im-12.png)

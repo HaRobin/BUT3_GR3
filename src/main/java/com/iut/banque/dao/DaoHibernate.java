@@ -26,7 +26,7 @@ import java.util.logging.Logger;
  */
 @Transactional
 public class DaoHibernate implements IDao {
-    private Logger logger = Logger.getLogger(getClass().getName());
+    transient Logger logger = Logger.getLogger(getClass().getName());
 
     private SessionFactory sessionFactory;
 

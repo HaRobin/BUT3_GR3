@@ -1,9 +1,15 @@
 package com.iut.banque.utils;
 
+import com.iut.banque.exceptions.PasswordHashingException;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class PasswordUtils {
+    private PasswordUtils() {
+        // Private constructor to prevent instantiation
+    }
+
     public static String hashPwd(String userPwd) {
         try {
             // Create a MessageDigest instance for SHA-256
@@ -26,7 +32,7 @@ public class PasswordUtils {
             return hexString.toString();
 
         } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException("Error hashing password", e);
+            throw new PasswordHashingException("Error hashing password", e);
         }
     }
 }

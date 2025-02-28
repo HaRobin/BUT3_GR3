@@ -3,14 +3,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib prefix="s" uri="/struts-tags" %>
 
-<!-- Définition variables de début
-<s:set var="aDecouvertTag" value="aDecouvert"/>
-<s:if test="%{#bool_val == true}">
-    TRUE</s:if>
-<s:else>
-    FALSE</s:else>-->
-
-
 <html lang="fr" xml:lang="fr">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">

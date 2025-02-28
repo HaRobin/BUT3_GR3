@@ -15,18 +15,18 @@ import java.util.logging.Logger;
 
 public class CreerCompte extends ActionSupport {
 
-    private Logger logger = Logger.getLogger(getClass().getName());
+    transient Logger logger = Logger.getLogger(getClass().getName());
 
     private static final long serialVersionUID = 1L;
     private String numeroCompte;
     private boolean avecDecouvert;
     private double decouvertAutorise;
-    private Client client;
+    transient Client client;
     private String message;
     private boolean error;
     private boolean result;
-    private BanqueFacade banque;
-    private Compte compte;
+    transient BanqueFacade banque;
+    transient Compte compte;
 
     /**
      * @param compte the compte to set
@@ -151,6 +151,9 @@ public class CreerCompte extends ActionSupport {
             case "SUCCESS":
                 this.message = "Le compte " + compte.getNumeroCompte() + " a bien été créé.";
                 break;
+            default:
+                this.message = "Erreur inconnue.";
+                break;
         }
     }
 
@@ -182,11 +185,7 @@ public class CreerCompte extends ActionSupport {
     public String creationCompte() {
         try {
             if (avecDecouvert) {
-                try {
-                    banque.createAccount(numeroCompte, client, decouvertAutorise);
-                } catch (IllegalOperationException e) {
-                    e.printStackTrace();
-                }
+                tryToCreateAccountWithDecouvert();
             } else {
                 banque.createAccount(numeroCompte, client);
             }
@@ -198,5 +197,13 @@ public class CreerCompte extends ActionSupport {
             return "INVALIDFORMAT";
         }
 
+    }
+
+    private void tryToCreateAccountWithDecouvert() throws TechnicalException, IllegalFormatException {
+        try {
+            banque.createAccount(numeroCompte, client, decouvertAutorise);
+        } catch (IllegalOperationException e) {
+            e.printStackTrace();
+        }
     }
 }

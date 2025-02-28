@@ -39,13 +39,12 @@ public class Client extends Utilisateur {
 
     /**
      * {@inheritDoc}
-     *
-     * @throws IllegalFormatException
      */
     @Override
     public void setUserId(String userId) throws IllegalFormatException {
         if (!Client.checkFormatUserIdClient(userId)) {
             throw new IllegalFormatException("L'identifiant n'est pas au bon format.");
+
         }
         super.setUserId(userId);
     }

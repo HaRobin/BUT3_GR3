@@ -31,7 +31,7 @@ public class ClientConverter extends StrutsTypeConverter {
      */
 
     private Logger logger = Logger.getLogger(ClientConverter.class.getName());
-    private static IDao dao;
+    private IDao dao;
 
     /**
      * Constructeur avec paramêtre pour le ClientConverter.
@@ -43,7 +43,7 @@ public class ClientConverter extends StrutsTypeConverter {
     public ClientConverter(IDao dao) {
         logger.info("=========================");
         logger.info("Création du convertisseur de client");
-        ClientConverter.dao = dao;
+        this.dao = dao;
     }
 
     /**
